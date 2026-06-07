@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyPC Manila</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+:root{
+    --primary:#22c12f;
+    --dark:#232323;
+    --light:#f5f7fa;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:var(--light);
+    color:#333;
+}
+
+.hero{
+    background:linear-gradient(135deg,#22c12f,#17a823);
+    color:white;
+    padding:60px 20px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:1.1rem;
+    opacity:.95;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:400px 1fr;
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.store-title{
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+.info{
+    margin:15px 0;
+}
+
+.info-item{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+    align-items:flex-start;
+}
+
+.icon{
+    font-size:20px;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.btn{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    text-decoration:none;
+    text-align:center;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-nav{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-copy{
+    background:var(--dark);
+    color:white;
+}
+
+#map{
+    height:600px;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#666;
+}
+
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    #map{
+        height:450px;
+    }
+
+    .hero h1{
+        font-size:2rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>EASYPC MANILA</h1>
+    <p>Your Trusted Computer Store in Sampaloc, Manila</p>
+</section>
+
+<div class="container">
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h2 class="store-title">Store Information</h2>
+
+            <div class="info">
+
+                <div class="info-item">
+                    <div class="icon">📍</div>
+                    <div>
+                        Unit B, 2071 ESPAÑA BLVD,<br>
+                        corner Ibarra, Sampaloc,<br>
+                        Manila, Metro Manila
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon">🕐</div>
+                    <div>10:00 AM - 7:00 PM</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon">📞</div>
+                    <div>0967 195 8488</div>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+
+                <a class="btn btn-nav"
+                   href="https://www.google.com/maps/search/?api=1&query=Unit+B,+2071+Espana+Blvd+corner+Ibarra,+Sampaloc,+Manila"
+                   target="_blank">
+                   NAVIGATE
+                </a>
+
+                <button class="btn btn-copy"
+                        onclick="copyAddress()">
+                        COPY
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="map"></div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 EasyPC Manila. All Rights Reserved.
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map('map').setView([14.6074,120.9894],17);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'© OpenStreetMap'
+}
+).addTo(map);
+
+const marker = L.marker([14.6074,120.9894]).addTo(map);
+
+marker.bindPopup(`
+<b>EASYPC MANILA</b><br>
+Unit B, 2071 ESPAÑA BLVD,<br>
+corner Ibarra, Sampaloc,<br>
+Manila, Metro Manila
+`).openPopup();
+
+function copyAddress(){
+
+const address =
+"EasyPC Manila, Unit B, 2071 ESPAÑA BLVD, corner Ibarra, Sampaloc, Manila, Metro Manila";
+
+navigator.clipboard.writeText(address);
+
+alert("Address copied successfully!");
+}
+
+</script>
+
+</body>
+</html>
